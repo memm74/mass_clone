@@ -4,19 +4,21 @@
 # It requires the folder name and a message
 
 
-if [[ $# -ne 1 ]];
+if [[ $# -ne 2 ]];
 	then
-	echo "This script requires 1 parameter."
-	echo "1. The folder name the assignments are in"
+	echo "This script requires 2 parameter."
+	echo "1. The commit message, which will be followed by date and time, e.g. Feedback or Graded"
+	echo "2. The folder name the assignments are in"
 else
-	assignment=$1
+	comment=$1
+	assignment=$2
 	date=`date +%m-%d-%Y`
 	time=`date +%H:%M:%S`
 	for f in ../${assignment}/*
 		do
 			cd $f
 			git add -A
-			git commit -m "Graded ${date} ${time}"
+			git commit -m "$1 ${date} ${time}"
 			git push origin master
 			echo $f
 			cd ..
